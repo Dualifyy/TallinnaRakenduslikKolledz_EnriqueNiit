@@ -1,3 +1,8 @@
+
+using Microsoft.EntityFrameworkCore;
+using TRK_TARpe24EN.Data;
+
+
 namespace TRK_TARpe24EN
 {
     public class Program
@@ -8,6 +13,9 @@ namespace TRK_TARpe24EN
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<SchoolContext>(options => options.UseSqlServer
+            (builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var app = builder.Build();
 
