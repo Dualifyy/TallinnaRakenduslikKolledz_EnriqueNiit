@@ -13,7 +13,7 @@ namespace TRK_TARpe24EN.Models
         public DateTime  EnrollmentDate { get; set; }
         public int? Age { get; set; }
         public float GradesPerAverage { get; set; }
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
 
 
 

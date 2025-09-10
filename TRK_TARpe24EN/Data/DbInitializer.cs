@@ -12,7 +12,7 @@ namespace TRK_TARpe24EN.Data
                 return;
             }
 
-            var students = new Student[]
+            var student = new Student[]
             {
                 new Student
                 {
