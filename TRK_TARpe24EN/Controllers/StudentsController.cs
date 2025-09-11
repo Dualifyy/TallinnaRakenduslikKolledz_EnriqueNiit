@@ -8,7 +8,7 @@ namespace TRK_TARpe24EN.Controllers
     public class StudentsController : Controller
     {
         private readonly SchoolContext _context;
-        public StudentsController(SchoolContext context) 
+        public StudentsController(SchoolContext context)
         {
             _context = context;
         }
@@ -29,10 +29,10 @@ namespace TRK_TARpe24EN.Controllers
 
         {
             if (ModelState.IsValid)
-            { 
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            {
+                _context.Students.Add(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
             return View(student);
         }
@@ -74,6 +74,23 @@ namespace TRK_TARpe24EN.Controllers
             var student = await _context.Students.FindAsync(id);
             return View(student);
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit (int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            return View(student);
+        }
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit([Bind("Id,LastName, FirstName,  EnrollmentDate, GradesPerAverage")] Student student)
 
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Students.Update(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(student);
+        }
     }
 }
