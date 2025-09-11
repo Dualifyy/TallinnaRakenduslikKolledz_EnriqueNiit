@@ -1,0 +1,62 @@
+﻿@model TRK_TARpe24EN.Models.Student
+
+@{
+	ViewData["Title"] = "Õpilase Detailid";
+}
+
+<hl>Vaata õpilast</hl>
+<h3>
+	Õpilane @Model.FirstName @Model.LastName Andmed
+</h3>
+<div>
+	<h4>Õpilane @Model.FirstName @Model.LastName</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.LastName)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.LastName)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.FirstName)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.FirstName)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Age)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.Age)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.GradesPerAverage)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.GradesPerAverage)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Gender)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.Gender)</dd>
+	</dl>
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.EnrollmentDate)</dt>
+		<dd class="col-sm-10">@Html.DisplayFor(Model => Model.EnrollmentDate)</dd>
+	</dl>
+
+	@if (Model.Enrollments != null)
+	{
+		foreach (var courseEnrollment in Model.Enrollments)
+		{
+			<dl class="row">
+				<dd class="col-sm-10">@(courseEnrollment)</dd>
+			</dl>
+		}
+	}
+	@if (Model.Enrollments != null)
+	{
+		foreach (var Age in Model.Enrollments)
+		{
+			<dl class="row">
+				<dd class="col-sm-10">@(Age)</dd>
+			</dl>
+		}
+	}
+	@if (Model.Enrollments != null)
+	{
+		@Model.GradesPerAverage
+	}
+
+</div>

@@ -36,6 +36,14 @@ namespace TRK_TARpe24EN.Controllers
             }
             return View(student);
         }
+        /**/
+
+
+        /// <summary>
+        /// get delete view for student
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -59,6 +67,12 @@ namespace TRK_TARpe24EN.Controllers
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            return View(student);
         }
 
     }
