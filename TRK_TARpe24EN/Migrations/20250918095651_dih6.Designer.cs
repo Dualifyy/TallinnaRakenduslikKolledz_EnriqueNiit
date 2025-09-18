@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TRK_TARpe24EN.Data;
 
@@ -11,9 +12,11 @@ using TRK_TARpe24EN.Data;
 namespace TRK_TARpe24EN.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20250918095651_dih6")]
+    partial class dih6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,10 +130,6 @@ namespace TRK_TARpe24EN.Migrations
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
-
-                    b.Property<string>("Tools")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
