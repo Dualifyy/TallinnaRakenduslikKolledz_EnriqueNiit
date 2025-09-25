@@ -12,15 +12,15 @@ using TRK_TARpe24EN.Data;
 namespace TRK_TARpe24EN.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250925082829_dih11")]
-    partial class dih11
+    [Migration("20250925102151_dih12876543")]
+    partial class dih12876543
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.19")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -151,8 +151,7 @@ namespace TRK_TARpe24EN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int?>("Age")
-                        .IsRequired()
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")

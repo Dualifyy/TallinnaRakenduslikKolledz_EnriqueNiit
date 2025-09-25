@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using TRK_TARpe24EN.Data;
 using TRK_TARpe24EN.Models;
 
@@ -27,7 +28,7 @@ namespace TRK_TARpe24EN
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name, Budget, StartDate, RowVersion, InstructorID, DepartmentStatus, DepartmentWorkers, Location, CriminalCases")]Department department)
+        public async Task<IActionResult> Create([Bind("Name, Budget, StartDate, RowVersion, InstructorID, DepartmentStatus, DepartmentWorkers, Location, CriminalCases")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -35,8 +36,44 @@ namespace TRK_TARpe24EN
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["InstructorID"] = new SelectList(_context.Instructors, "Id", "FullName", department.Administrator);
+            ViewData["InstructorID"] = new SelectList(_context.Instructors, "Id", "FullName", department.InstructorID);
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete (int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var department = await _context.Departments
+                .Include(d => d.Administrator)
+                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+            if (department == null)
+                {
+                return NotFound();
+            }
+            ViewData["Delete"] = "Delete";
+            return View(department);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Department department)
+        {
+            if (await _context.Departments.AnyAsync(m => m.DepartmentID == department.DepartmentID))
+            {
+                _context.Departments.Remove(department);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            ViewData["Delete"] = "Details";
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == id);
+            return View(nameof(Delete), department);
+
         }
     }
 }
