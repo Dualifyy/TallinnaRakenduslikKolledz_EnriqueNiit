@@ -12,8 +12,8 @@ using TRK_TARpe24EN.Data;
 namespace TRK_TARpe24EN.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250915111915_dih4")]
-    partial class dih4
+    [Migration("20250925082829_dih11")]
+    partial class dih11
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,11 +36,16 @@ namespace TRK_TARpe24EN.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DepartmentID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CourseID");
+
+                    b.HasIndex("DepartmentID");
 
                     b.ToTable("Course", (string)null);
                 });
@@ -66,6 +71,46 @@ namespace TRK_TARpe24EN.Migrations
                     b.HasIndex("InstructorID");
 
                     b.ToTable("CourseAssignment", (string)null);
+                });
+
+            modelBuilder.Entity("TRK_TARpe24EN.Models.Department", b =>
+                {
+                    b.Property<int>("DepartmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentID"));
+
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CriminalCases")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentWorkers")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InstructorID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte?>("RowVersion")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DepartmentID");
+
+                    b.HasIndex("InstructorID");
+
+                    b.ToTable("Department", (string)null);
                 });
 
             modelBuilder.Entity("TRK_TARpe24EN.Models.Enrollment", b =>
@@ -184,6 +229,13 @@ namespace TRK_TARpe24EN.Migrations
                     b.ToTable("Student", (string)null);
                 });
 
+            modelBuilder.Entity("TRK_TARpe24EN.Models.Course", b =>
+                {
+                    b.HasOne("TRK_TARpe24EN.Models.Department", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentID");
+                });
+
             modelBuilder.Entity("TRK_TARpe24EN.Models.CourseAssignment", b =>
                 {
                     b.HasOne("TRK_TARpe24EN.Models.Course", "Course")
@@ -201,6 +253,15 @@ namespace TRK_TARpe24EN.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Instructor");
+                });
+
+            modelBuilder.Entity("TRK_TARpe24EN.Models.Department", b =>
+                {
+                    b.HasOne("TRK_TARpe24EN.Models.Instructor", "Administrator")
+                        .WithMany()
+                        .HasForeignKey("InstructorID");
+
+                    b.Navigation("Administrator");
                 });
 
             modelBuilder.Entity("TRK_TARpe24EN.Models.Enrollment", b =>
@@ -236,6 +297,11 @@ namespace TRK_TARpe24EN.Migrations
             modelBuilder.Entity("TRK_TARpe24EN.Models.Course", b =>
                 {
                     b.Navigation("Enrollments");
+                });
+
+            modelBuilder.Entity("TRK_TARpe24EN.Models.Department", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("TRK_TARpe24EN.Models.Instructor", b =>

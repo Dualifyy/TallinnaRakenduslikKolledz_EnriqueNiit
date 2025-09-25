@@ -18,6 +18,8 @@ namespace TRK_TARpe24EN
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var app = builder.Build();
+            CreateDbIFNotExists(app);
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -39,6 +41,24 @@ namespace TRK_TARpe24EN
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        private static void CreateDbIFNotExists(IHost app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<SchoolContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Error occurred on creating DB");
+                }
+            }
         }
     }
 }
