@@ -1,0 +1,56 @@
+﻿@model TRK_TARpe24EN.Models.Course
+
+@{
+    ViewData["Title"] = "Osakonna info";
+}
+@if (ViewBag.Delete == "Delete")
+{
+    <h2>@Html.DisplayFor(ModelItem => Model.Title)</h2>
+
+    <p>
+        <h3>Kustuta kursus</h3>
+    </p>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.CourseID)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.CourseID)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Title)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Title)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Credits)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Credits)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Department.Name)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Department.Name)</dt>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="CourseID" />
+            <input type="submit" value="Kustuta" class="btn btn-danger" /> |
+            <a asp-action="Index">Tagasi Osakondade Loetellu</a>
+        </form>
+    </div>
+}
+else if (ViewBag.Delete == "Details")
+{
+    <h2>@Html.DisplayFor(ModelItem => Model.Title)</h2>
+    <p>
+        <h3>Vaata kursust</h3>
+    </p>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.CourseID)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.CourseID)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Title)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Title)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Credits)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Credits)</dt>
+            <dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Department.Name)</dt>
+            <dt class="col-sm-2">@Html.DisplayFor(Model => Model.Department.Name)</dt>
+        </dl>
+
+        <form>
+            <a asp-action="Index">Tagasi Osakondade Loetellu</a>
+        </form>
+    </div>
+}

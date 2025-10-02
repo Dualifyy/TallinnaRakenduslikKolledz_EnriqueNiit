@@ -23,6 +23,7 @@ namespace TRK_TARpe24EN.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Create"] = "Create";
             PopulateDepartmentsDropDownList();
             return View();
         }
@@ -30,9 +31,13 @@ namespace TRK_TARpe24EN.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course)
         {
-            _context.Add(course);
-            await _context.SaveChangesAsync();
-            PopulateDepartmentsDropDownList(course.DepartmentID);
+            if (ModelState.IsValid)
+            {
+                _context.Courses.Add(course);
+                await _context.SaveChangesAsync();
+                //PopulateDepartmentsDropDownList(course.DepartmentID);
+           
+            }
             return RedirectToAction("Index");
         }
 
@@ -51,6 +56,7 @@ namespace TRK_TARpe24EN.Controllers
             {
                 return NotFound();
             }
+            ViewData["Delete"] = "Delete";
             return View(courses);
         }
         [HttpPost, ActionName("Delete")]
@@ -70,7 +76,35 @@ namespace TRK_TARpe24EN.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            ViewData["Delete"] = "Details";
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseID == id);
+            return View(nameof(Delete), course);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            ViewData["Create"] = "Edit";
+            var course = await _context.Courses.FindAsync(id);
+            return View(course);
+
+        }
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit([Bind("CourseID, Title, Credits, DepartmentID")] Course course)
+
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(course);
+        }
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
         {
             var departmentsQuery = from d in _context.Departments
