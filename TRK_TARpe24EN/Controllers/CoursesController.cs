@@ -25,7 +25,7 @@ namespace TRK_TARpe24EN.Controllers
         {
             ViewData["Create"] = "Create";
             PopulateDepartmentsDropDownList();
-            return View();
+            return View("Create");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,16 +48,16 @@ namespace TRK_TARpe24EN.Controllers
             {
                 return NotFound();
             }
-            var courses = await _context.Courses
+            var course = await _context.Courses
                 .Include(c => c.Department)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.CourseID == id);
-            if (courses == null)
+            if (course == null)
             {
                 return NotFound();
             }
             ViewData["Delete"] = "Delete";
-            return View(courses);
+            return View(course);
         }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -72,8 +72,8 @@ namespace TRK_TARpe24EN.Controllers
             if (course == null)
             {
                 _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -90,7 +90,7 @@ namespace TRK_TARpe24EN.Controllers
         {
             ViewData["Create"] = "Edit";
             var course = await _context.Courses.FindAsync(id);
-            return View(course);
+            return View("Create");
 
         }
         [HttpPost, ActionName("Edit")]

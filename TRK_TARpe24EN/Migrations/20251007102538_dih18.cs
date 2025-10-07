@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TRK_TARpe24EN.Migrations
 {
     /// <inheritdoc />
-    public partial class dih12876543 : Migration
+    public partial class dih18 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

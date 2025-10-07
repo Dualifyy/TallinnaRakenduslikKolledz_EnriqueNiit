@@ -12,8 +12,8 @@ using TRK_TARpe24EN.Data;
 namespace TRK_TARpe24EN.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250925133320_dih15")]
-    partial class dih15
+    [Migration("20251007102538_dih18")]
+    partial class dih18
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
