@@ -1,0 +1,29 @@
+﻿@model TRK_TARpe24EN.Models.Instructor
+@{
+	ViewData["Title"] = "Õpetaja andmed";
+}
+
+<h1>Õpetaja andmed</h1>
+<div>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.LastName)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.LastName)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.FirstName)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.FirstName)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.HireDate)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.HireDate)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.OfficeAssignment)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.OfficeAssignment)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Salary)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Salary)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Gender)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Gender)</dt>
+		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Age)</dt>
+		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Age)</dt>
+	</dl>
+
+	<form>
+		<a asp-action="Index">Tagasi õpetajate loetellu</a>
+	</form>
+</div>

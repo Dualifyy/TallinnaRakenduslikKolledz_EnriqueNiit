@@ -60,7 +60,6 @@ namespace TRK_TARpe24EN.Controllers
             return View(course);
         }
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -69,7 +68,7 @@ namespace TRK_TARpe24EN.Controllers
                 return NotFound();
             }
             var course = await _context.Courses.FindAsync(id);
-            if (course == null)
+            if (course != null)
             {
                 _context.Courses.Remove(course);
                 await _context.SaveChangesAsync();

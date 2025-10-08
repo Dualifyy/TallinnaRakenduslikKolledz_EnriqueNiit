@@ -87,6 +87,11 @@ namespace TRK_TARpe24EN.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            return View();
+        }
 
 
         private void PopulateAssignedCourseData(Instructor instructor)
