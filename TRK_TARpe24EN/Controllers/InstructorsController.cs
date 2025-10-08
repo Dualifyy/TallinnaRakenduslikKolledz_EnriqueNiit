@@ -90,6 +90,24 @@ namespace TRK_TARpe24EN.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
+            var instructor = await _context.Instructors.FirstOrDefaultAsync(i => i.ID == id);
+            return View(instructor);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var instructor = await _context.Instructors.FindAsync(id);
+            return View(instructor);
+        }
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit([Bind("ID, LastName, FirstName, Salary, Gender, Age, HireDate")] Instructor instructor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Instructors.Update(instructor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
             return View();
         }
 

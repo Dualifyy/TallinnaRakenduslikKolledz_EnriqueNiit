@@ -2,10 +2,11 @@
 @{
 	ViewData["Title"] = "Õpetaja andmed";
 }
-
 <h1>Õpetaja andmed</h1>
+<h2>@Html.DisplayFor(ModelItem => Model.FullName)</h2>
 <div>
-	<hr />
+	<h4>Õpetaja</h4>
+	<hr/>
 	<dl class="row">
 		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.LastName)</dt>
 		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.LastName)</dt>
@@ -22,8 +23,8 @@
 		<dt class="col-sm-2">@Html.DisplayNameFor(Model => Model.Age)</dt>
 		<dt class="col-sm-2">@Html.DisplayFor(Model => Model.Age)</dt>
 	</dl>
-
 	<form>
+		<input type="hidden" asp-for="ID" />
 		<a asp-action="Index">Tagasi õpetajate loetellu</a>
 	</form>
 </div>
