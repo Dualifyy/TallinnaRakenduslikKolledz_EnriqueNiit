@@ -23,8 +23,9 @@ namespace TRK_TARpe24EN
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Create"] = "Create";
             ViewData["InstructorID"] = new SelectList(_context.Instructors, "ID", "FullName");
-            return View();
+            return View("Create");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,6 +75,24 @@ namespace TRK_TARpe24EN
             var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == id);
             return View(nameof(Delete), department);
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            ViewData["Create"] = "Edit";
+            var department = await _context.Departments.FindAsync(id);
+            return View("Create");
+        }
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> Edit([Bind("Name, Budget, StartDate, RowVersion, InstructorID, DepartmentStatus, DepartmentWorkers, Location, CriminalCases")] Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Departments.Update(department);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(department);
         }
     }
 }
