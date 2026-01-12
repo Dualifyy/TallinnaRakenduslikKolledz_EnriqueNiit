@@ -9,9 +9,15 @@ namespace TRK_TARpe24EN.Controllers
 {
    public class DelinquentsController : Controller
     {
+        private readonly SchoolContext _context;
+        public DelinquentsController(SchoolContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View("Index");
+            var delinquents = _context.Delinquents.ToList();
+            return View(delinquents);
         }
         [HttpGet]
         public IActionResult Create()

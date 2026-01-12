@@ -15,6 +15,7 @@ namespace TRK_TARpe24EN.Data
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Delinquents> Delinquents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,7 +26,8 @@ namespace TRK_TARpe24EN.Data
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignment");
             modelBuilder.Entity<Department>().ToTable("Department");
-        
+            modelBuilder.Entity<Delinquents>().ToTable("Delinquents");
+
         }
 
     }
