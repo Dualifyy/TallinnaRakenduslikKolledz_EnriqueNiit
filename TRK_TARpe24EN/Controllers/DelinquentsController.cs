@@ -7,7 +7,7 @@ using TRK_TARpe24EN.Models;
 
 namespace TRK_TARpe24EN.Controllers
 {
-   public class DelinquentsController : Controller
+    public class DelinquentsController : Controller
     {
         private readonly SchoolContext _context;
         public DelinquentsController(SchoolContext context)
@@ -28,11 +28,35 @@ namespace TRK_TARpe24EN.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Delinquents delinquent)
         {
-             if (ModelState.IsValid)
-             {
-
-             }
-             return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Add(delinquent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var delinquents = await _context.Delinquents.FindAsync(id);
+            return View(delinquents);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Delinquents delinquent)
+        {
+            if (id != delinquent.ID)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Delinquents.Update(delinquent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(delinquent);
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿@model TRK_TARpe24EN.Models.Delinquents
 @{
-    ViewData["Title"] = "Lisa Korrarikkuja";
+    ViewData["Title"] = "Korrarikkujad";
 }
 
-<h2>Korrarikkuja lisamine</h2>
+<h2>Muuda korrarikkuja andmeid</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="create">
+        <form asp-action="Edit">
 
+            <input type="hidden" asp-for="ID"/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -41,7 +42,4 @@
             </div>
         </form>
     </div>
-</div>
-<div>
-     <a asp-action="Index">Mine tagasi loendisse</a>
 </div>
