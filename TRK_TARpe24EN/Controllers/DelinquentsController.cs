@@ -58,5 +58,11 @@ namespace TRK_TARpe24EN.Controllers
             }
             return View(delinquent);
         }
+        [HttpGet]
+        public async Task<IActionResult> Details (int? id)
+        {
+            var delinquent = await _context.Delinquents.FindAsync(id);
+            return View(delinquent);
+        }
     }
 }
